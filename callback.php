@@ -22,7 +22,7 @@ $transaction_status = $_GET['transaction_status'];
 
 if ($transaction_status == 'CONFIRMED') {
   //Add the invoice to the database
-  $result = mysql_query("replace INTO invoice_payments (invoice_id, transaction_hash, value) values($invoice_id, '$transaction_hash', $value_in_btc)");
+  $result = mysql_query("INSERT INTO invoice_payments (invoice_id, transaction_hash, value) values($invoice_id, '$transaction_hash', $value_in_btc)");
 
   //Delete from pending
   mysql_query("delete from pending_invoice_payments where invoice_id = $invoice_id limit 1");
@@ -30,7 +30,7 @@ if ($transaction_status == 'CONFIRMED') {
 } else if($transaction_status == 'PENDING') {
    //Waiting for confirmations
    //create a pending payment entry
-   mysql_query("replace INTO pending_invoice_payments (invoice_id, transaction_hash, value) values($invoice_id, '$transaction_hash', $value_in_btc)");
+   mysql_query("INSERT INTO pending_invoice_payments (invoice_id, transaction_hash, value) values($invoice_id, '$transaction_hash', $value_in_btc)");
 
    echo "Waiting for confirmations";
 }
