@@ -2,11 +2,17 @@
 include 'include.php';
 
 //If your amount is in USD currency//
-if(!empty($amount_usd)) {
+$amount_usd = 100;
+
+//If your amount is already in BTC currency//
+$amount_btc = 0;
+
+//If your amount is in USD currency. This amount needs to be converted to BTC currency//
+if(!empty($amount_usd) && $amount_usd > 0) {
 	$amount_arr = json_decode(file_get_contents($coinlink_root . "apis/tobtc?currency=USD&value=".$amount_usd));
 	$amount = $amount_arr->value_btc;
 }
-else if(!empty($amount_btc)) {
+else if(!empty($amount_btc) && $amount_btc > 0) {
 	$amount = $amount_btc;
 }
 $request_arr = array();
